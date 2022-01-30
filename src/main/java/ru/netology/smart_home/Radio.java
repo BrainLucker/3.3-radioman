@@ -1,28 +1,28 @@
 package ru.netology.smart_home;
 
 public class Radio {
-    private int currentRadioStation;
+    int currentStation;
     int currentVolume;
 
     public void nextStation() {
-        if (currentRadioStation < 9) {
-            currentRadioStation++;
+        if (currentStation < 9) {
+            currentStation++;
         } else {
-            currentRadioStation = 0;
+            currentStation = 0;
         }
     }
 
     public void prevStation() {
-        if (currentRadioStation > 0) {
-            currentRadioStation--;
+        if (currentStation > 0) {
+            currentStation--;
         } else {
-            currentRadioStation = 9;
+            currentStation = 9;
         }
     }
 
-    public void setStation(int currentRadioStation) {
-        if (currentRadioStation >= 0 && currentRadioStation <= 9) {
-            this.currentRadioStation = currentRadioStation;
+    public void setStation(int currentStation) {
+        if (currentStation >= 0 && currentStation <= 9) {
+            this.currentStation = currentStation;
         }
     }
 
