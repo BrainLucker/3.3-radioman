@@ -13,10 +13,10 @@ class RadioTest {
             "Middle station, 5, 6",
             "Last station, 9, 0"
     })
-    void shouldSetNextStation(String name, int currentStation, int expected) {
-        radio.currentStation = currentStation; // Выставляем текущую станцию
+    void shouldSetNextStation(String name, int station, int expected) {
+        radio.setCurrentStation(station); // Выставляем текущую станцию
         radio.nextStation(); // Переключаем на следующую станцию
-        int actual = radio.currentStation;
+        int actual = radio.getCurrentStation();
 
         assertEquals(expected, actual);
     }
@@ -26,10 +26,10 @@ class RadioTest {
             "Middle station, 5, 4",
             "First station, 0, 9"
     })
-    void shouldSetPrevStation(String name, int currentStation, int expected) {
-        radio.currentStation = currentStation; // Выставляем текущую станцию
+    void shouldSetPrevStation(String name, int station, int expected) {
+        radio.setCurrentStation(station); // Выставляем текущую станцию
         radio.prevStation(); // Переключаем на предыдущую станцию
-        int actual = radio.currentStation;
+        int actual = radio.getCurrentStation();
 
         assertEquals(expected, actual);
     }
@@ -43,8 +43,8 @@ class RadioTest {
             "Over Limit, 10, 0",
     })
     void shouldSetStation(String name, int station, int expected) {
-        radio.setStation(station); // Переключаем на желаемую станцию
-        int actual = radio.currentStation;
+        radio.setCurrentStation(station); // Переключаем на желаемую станцию
+        int actual = radio.getCurrentStation();
 
         assertEquals(expected, actual);
     }
@@ -54,10 +54,10 @@ class RadioTest {
             "Normal volume, 5, 6",
             "Maximum volume, 10, 10"
     })
-    void shouldIncreaseVolume(String name, int currentVolume, int expected) {
-        radio.currentVolume = currentVolume; // Выставляем текущую громкость
+    void shouldIncreaseVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume); // Выставляем текущую громкость
         radio.increaseVolume(); // Прибавляем громкость
-        int actual = radio.currentVolume;
+        int actual = radio.getCurrentVolume();
 
         assertEquals(expected, actual);
     }
@@ -67,10 +67,25 @@ class RadioTest {
             "Normal volume, 5, 4",
             "Minimum volume, 0, 0"
     })
-    void shouldDecreaseVolume(String name, int currentVolume, int expected) {
-        radio.currentVolume = currentVolume; // Выставляем текущую громкость
+    void shouldDecreaseVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume); // Выставляем текущую громкость
         radio.decreaseVolume(); // Убавляем громкость
-        int actual = radio.currentVolume;
+        int actual = radio.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest()
+    @CsvSource({
+            "Normal volume, 5, 5",
+            "Minimum volume, 0, 0",
+            "Maximum volume, 10, 10",
+            "Below Limit, -1, 0",
+            "Over Limit, 11, 0",
+    })
+    void shouldSetCurrentVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume); // Переключаем на желаемую станцию
+        int actual = radio.getCurrentVolume();
 
         assertEquals(expected, actual);
     }
